@@ -1,0 +1,11 @@
+.filterSection {
+  display: flex;
+  margin: 10px 0;
+}
+
+.filterBtn {
+  border-radius: 10px;
+  border: solid 1px black;
+  margin-right: 10px;
+  padding: 10px;
+}
