@@ -12,10 +12,11 @@ const ListsSection: React.FC = () => {
   const initialPage: number = parseInt(searchParams.get("page") || "1") || 1;
 
   const { series, isEndPage } = useIceandfireApi(initialPage);
-  const [ strainer, setStrainer ] = useState<Strainer[]>([{key: "gender", cond:"Male"}])
+  const [ strainer, setStrainer ] = useState<Strainer[]>([]);
+  const [ blacklist, setBlacklist ] = useState<number[]>([]);
 
-  console.log(isEndPage);
-
+  // 다이나믹 필터링 함수입니다. 각 값마다 strainer ( 거름망 ) 에 들어간 
+  // 모든 조건을 충족하는지 확인합니다.
   const dynamicFilterController = (item: any) => {
     for(const layer of strainer){
       const { key:key, cond:cond } = layer;
@@ -25,25 +26,28 @@ const ListsSection: React.FC = () => {
     }
     return true;
   }
-    
-//   data.filter( i => { for(cond of filterCond){
-//     const key = Object.keys(cond)[0];
-//     const tar = cond[key];
-//     console.log(key, tar);
-//     if(i[key] != tar ){
-//         return false
-//     }
-// } return true;
-//       });
+
+  const addBlackListHandler = (index: number) => {
+    const newBlacklist:number[] = new Array(...blacklist);
+    newBlacklist.push(index);
+    setBlacklist(newBlacklist);
+  }
+
+  console.log(series);
+
+  const resetBlacklist = () => {
+    setBlacklist([]);
+  }
 
   return (
     <div>
-      <FilterSection />
+      <FilterSection setStrainer={setStrainer} resetBlacklist={resetBlacklist} />
       {series.length > 0 &&
         series
-          // .filter(dynamicFilterController)
+          .filter(i => blacklist.includes(i.index) === false)
+          .filter(dynamicFilterController)
           .map((value, index) => {
-            return <IceandfireItem item={value} key={index} />;
+            return <IceandfireItem item={value} key={index} delButtonClick={addBlackListHandler} />;
           })}
     </div>
   );
