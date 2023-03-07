@@ -1,14 +1,15 @@
 import classes from "./Layout.module.css";
-import Filter from "./filter/Filter";
+
 import Title from "./title/Title";
 import ListsSection from "./lists/ListsSection";
+import LoadingSection from "./loadingSection/LoadingSection";
 
 const Layout: React.FC<{}> = () => {
   return (
     <div className={classes.Layout}>
       <Title />
-      <Filter />
       <ListsSection />
+      <LoadingSection />
     </div>
   );
 };

@@ -1,42 +1,50 @@
-import { useState, useEffect } from "react";
-import classes from "./ListsSection.module.css";
+import { useState } from "react";
+import useIceandfireApi from "../../hook/use-iceandfire-api";
+import { useLocation } from "react-router-dom";
+import IceandfireItem from "./IceandfireItem";
+import FilterSection from "./filter/FilterSection";
 
-type IceAndFire = {
-  name: string;
-  aliases: string[];
-  titles: string[];
-  books: string[];
-  tvSeries: string[];
-};
+import { Strainer } from "../types/IceandfireTypes";
 
 const ListsSection: React.FC = () => {
-  const [series, setSeries] = useState<IceAndFire[]>([]);
+  const location = useLocation();
+  const searchParams: URLSearchParams = new URLSearchParams(location.search);
+  const initialPage: number = parseInt(searchParams.get("page") || "1") || 1;
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch("https://www.anapioficeandfire.com/api/characters?page=1&pageSize=10");
-      if (response.ok) {
-        const data = await response.json();
-        setSeries(data);
-      } else {
-        console.error("fetchError");
+  const { series, isEndPage } = useIceandfireApi(initialPage);
+  const [ strainer, setStrainer ] = useState<Strainer[]>([{key: "gender", cond:"Male"}])
+
+  console.log(isEndPage);
+
+  const dynamicFilterController = (item: any) => {
+    for(const layer of strainer){
+      const { key:key, cond:cond } = layer;
+      if(item[key] != cond){
+        return false;
       }
-    })();
-  }, []);
-  console.log(series)
+    }
+    return true;
+  }
+    
+//   data.filter( i => { for(cond of filterCond){
+//     const key = Object.keys(cond)[0];
+//     const tar = cond[key];
+//     console.log(key, tar);
+//     if(i[key] != tar ){
+//         return false
+//     }
+// } return true;
+//       });
 
   return (
     <div>
+      <FilterSection />
       {series.length > 0 &&
-        series.map((value, index) => {
-          return <div className={classes.item} key={index}>
-            <div>{value.name}</div>
-            <div>{value.aliases.join(", ")}</div>
-            <div>{value.titles}</div>
-            <div>책 : {value.books.length}</div>
-            <div>TV 시리즈 : {value.tvSeries.length}</div>
-          </div>;
-        })}
+        series
+          // .filter(dynamicFilterController)
+          .map((value, index) => {
+            return <IceandfireItem item={value} key={index} />;
+          })}
     </div>
   );
 };
