@@ -4,3 +4,11 @@
   min-height: 100vh;
   margin: 0 auto;
 }
+
+.BottomBtn {
+  position: fixed;
+  left: 50%;
+  right: 50%;
+  margin : auto auto;
+  bottom : 10px;
+}

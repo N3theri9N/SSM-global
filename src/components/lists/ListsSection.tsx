@@ -3,6 +3,9 @@ import useIceandfireApi from "../../hook/use-iceandfire-api";
 import { useLocation } from "react-router-dom";
 import IceandfireItem from "./IceandfireItem";
 import FilterSection from "./filter/FilterSection";
+import LoadingSection from "./loadingSection/LoadingSection";
+
+import classes from "./ListsSection.module.css";
 
 import { Strainer } from "../types/IceandfireTypes";
 
@@ -33,14 +36,12 @@ const ListsSection: React.FC = () => {
     setBlacklist(newBlacklist);
   }
 
-  console.log(series);
-
   const resetBlacklist = () => {
     setBlacklist([]);
   }
 
   return (
-    <div>
+    <div className={classes.listSection}>
       <FilterSection setStrainer={setStrainer} resetBlacklist={resetBlacklist} />
       {series.length > 0 &&
         series
@@ -49,6 +50,7 @@ const ListsSection: React.FC = () => {
           .map((value, index) => {
             return <IceandfireItem item={value} key={index} delButtonClick={addBlackListHandler} />;
           })}
+      { isEndPage === false && <LoadingSection /> }
     </div>
   );
 };

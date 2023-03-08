@@ -1,13 +1,15 @@
 .filterBtn {
   border-radius: 10px;
   border: solid 1px black;
+  background-color: white;
   padding: 10px;
+  cursor: pointer;
 }
-
+/* 
 .filterBtn:hover {
   color: white;
   background-color: black;
-}
+} */
 
 .active {
   color: white;
