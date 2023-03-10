@@ -1,7 +1,10 @@
-import SquareButton from "./UI/SquareButton";
+import classes from "./TopButton.module.css";
 
 const TopButton: React.FC = () => {
-  return <SquareButton text="&#8593;" onClick={() => {window.scrollTo(0, 0)}} />
+  const topButtonHandler = () => {
+    window.scrollTo(0, 0);
+  }
+  return <button className={classes.topButton} onClick={topButtonHandler}>&#8593;</button>
 }
 
 export default TopButton;

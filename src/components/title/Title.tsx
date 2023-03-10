@@ -1,7 +1,8 @@
 import classes from "./Title.module.css";
 
-const Title : React.FC = () => {
-  return <div className={classes.Title}>무신사 글로벌 과제</div>
-}
+const Title: React.FC = () => {
+  const titleText = "무신사 글로벌";
+  return <div className={classes.Title}>{titleText}</div>;
+};
 
 export default Title;

@@ -16,9 +16,14 @@ const initialFilterData: FilterDataType[] = [
   },
   {
     text: "tv시리즈 없음",
-    value: { key: "tvSeries", cond: 0 },
     active: false,
+    value: { key: "tvSeries", cond: 0 },
   },
+  {
+    text: "책 1 권",
+    active: false,
+    value: { key: "books", cond: 1 },
+  }
 ];
 
 // 초깃값을 참조하지 않고 값 그대로를 반영하기 위해 사용합니다.

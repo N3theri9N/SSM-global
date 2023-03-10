@@ -9,9 +9,7 @@ const Layout: React.FC<{}> = () => {
     <div className={classes.Layout}>
       <Title />
       <ListsSection />
-      <div className={classes.BottomBtn}>
-        <TopButton />
-      </div>
+      <TopButton />
     </div>
   );
 };
