@@ -1,0 +1,9 @@
+.loading {
+  background-color: rgba(128, 128, 128, 0.5);
+  text-align: center;
+  
+  padding-top:auto;
+  font-weight: 500;
+  padding: 25px 0;
+  bottom: 0px;
+}
