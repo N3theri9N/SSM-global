@@ -31,11 +31,9 @@ const ListsSection: React.FC = () => {
   // 다이나믹 필터링 함수입니다. 각 값마다 strainer ( 거름망 ) 에 들어간
   // 모든 조건을 충족하는지 확인합니다.
   const dynamicFilterController = (item: IceAndFire):boolean => {
-    type ObjectKey = keyof typeof item;
     for (const layer of strainer) {
       const { key: key, cond: cond } = layer;
-      const idxKey = key as ObjectKey;
-      if ( !item[idxKey] || item[idxKey] != cond) {
+      if(item[key] != cond){
         return false;
       }
     }

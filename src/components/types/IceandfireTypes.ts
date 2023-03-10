@@ -3,8 +3,8 @@ export type IceAndFire = {
   name: string;
   aliases: string[];
   titles: string[];
-  books: string[]|number;
-  tvSeries: string[]|number;
+  books: number;
+  tvSeries: number;
   
   // for filter property;
   died: string;
@@ -12,7 +12,7 @@ export type IceAndFire = {
 };
 
 export type Strainer = {
-  key: string;
+  key: "name"|"titles"|"books"|"tvSeries"|"died"|"gender";
   cond: string|boolean|number;
 }
 
