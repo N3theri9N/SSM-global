@@ -7,10 +7,11 @@ const useIceandfireApi = (
   isEndPage: boolean;
   series: IceAndFire[];
 } => {
+  const [isLoading, setisLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(initialPage);
   const [series, setSeries] = useState<IceAndFire[]>([]);
   
-  let isLoading: boolean = false;
+  // let isLoading: boolean = false;
   const isEndPage = page > 10;
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const useIceandfireApi = (
       }
     }
 
-    if (document && !isEndPage && !isEndPage) {
+    if (document && !isEndPage && !isLoading) {
       observer = new IntersectionObserver( IOCallback, { threshold: 0.5 });
       target = document.getElementById("Loading");
       target && observer.observe(target);
@@ -37,7 +38,7 @@ const useIceandfireApi = (
   }, [document, isLoading, isEndPage]);
 
   const sendGetRequest = useCallback(async (queryPage = 1) => {
-    isLoading = true;
+    setisLoading(true);
     const response : void|Response = await fetch(`https://www.anapioficeandfire.com/api/characters?pageSize=10&page=${queryPage}`);
   
     if(!response.ok){
@@ -61,7 +62,7 @@ const useIceandfireApi = (
       };
     });
     setSeries((prevData) => [...prevData, ...processedData]);
-    isLoading = false;
+    setisLoading(false);
   }, []);
 
   return { isEndPage, series };
