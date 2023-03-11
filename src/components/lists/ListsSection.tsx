@@ -19,9 +19,10 @@ const ListsSection: React.FC = () => {
   const [blacklist, setBlacklist] = useState<number[]>([]);
 
   const addBlackListHandler = useCallback((index: number):void => {
-    const newBlacklist: number[] = new Array(...blacklist);
-    newBlacklist.push(index);
-    setBlacklist(newBlacklist);
+    setBlacklist( prevArray => {
+      prevArray.push(index);
+      return [...prevArray];
+    });
   }, []);
 
   const resetBlacklist = useCallback(():void => {
